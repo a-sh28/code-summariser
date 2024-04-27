@@ -24,20 +24,23 @@ function AccountSettings() {
       <Container>
       <Row className="d-flex justify-content-center align-items-center">
         <Col>
-          <div className="border border-3 border-dark" ></div>
-          <Card className="shadow px-5 py-3">
+          <Card className="shadow"  style={{ width: '500px', height: '250px' }}>
+          <Card.Header style={{backgroundColor: '#99CCFF'}}>
+            <h3>Account Information</h3>
+          </Card.Header>
             <Card.Body>
               <div className="mb-2 mt-2">
-                <h4 className="fw-bold mb-2 text-uppercase">Account Information</h4>
                 Email Address: {adminEmail} {/* Display admin email */}
                 <br />
                 Password: {/* Display admin password */}
                 <br />
                 Role: Administrator
                 <br />
-                <Card.Text>
-                  <a href="/change-password">Change Password</a> {/* Simple link to change password */}
-                </Card.Text>
+                <div className="d-grid">
+                  <Button class="text-body" style={{margin: "5%",backgroundColor: "#0066CC",borderColor:"#00000"}} type="submit">
+                    Change Passowrd
+                  </Button>
+                </div>
 
               </div>
             </Card.Body>
