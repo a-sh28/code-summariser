@@ -24,11 +24,12 @@ function AddAdmin() {
       <Container>
       <Row className="d-flex justify-content-center align-items-center">
         <Col>
-          <div className="border border-3 border-dark" ></div>
-          <Card className="shadow px-5 py-3">
+          <Card className="shadow"  style={{ width: '500px', height: '350px' }}>
+          <Card.Header style={{backgroundColor: '#99CCFF'}}>
+            <h3>Add Admin</h3>
+          </Card.Header>
             <Card.Body>
               <div className="mb-2 mt-2">
-                <h4 className="fw-bold mb-2 text-uppercase">Add Admin</h4>
                 <Form className="mb-2">
                   <Form.Group className="mb-2" controlId="formBasicEmail">
                     <Form.Label className="text-center">
