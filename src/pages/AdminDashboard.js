@@ -7,7 +7,7 @@ import AccountSettings from './AccountSettings';
 
 function AdminDashboard() {
 
-  const [activeComponent, setActiveComponent] = useState(null);
+  const [activeComponent, setActiveComponent] = useState('viewUserStats');
   const handleAddAdminClick = () => {
     setActiveComponent('addAdmin');
     setIsClicked1(!isClicked1);
@@ -31,7 +31,7 @@ function AdminDashboard() {
 
   // State to manage whether the container is clicked or not
     const [isClicked1, setIsClicked1] = useState(false);
-    const [isClicked2, setIsClicked2] = useState(false);
+    const [isClicked2, setIsClicked2] = useState(true);
     const [isClicked3, setIsClicked3] = useState(false);
 
     // Define the style object based on the clicked state
