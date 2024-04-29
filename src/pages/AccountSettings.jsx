@@ -6,19 +6,6 @@ function AccountSettings() {
   const [adminEmail, setAdminEmail] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
 
-  // useEffect(() => {
-  //   // Fetch admin email and password from backend API
-  //   axios.get('/admin')
-  //     .then(response => {
-  //       const { email, password } = response.data[0];
-  //       setAdminEmail(email);
-  //       setAdminPassword(password);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching admin data:', error);
-  //     });
-  //   }, []);
-
   return (
     <div>
       <Container>
