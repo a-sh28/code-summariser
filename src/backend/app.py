@@ -135,5 +135,27 @@ def get_category_user_eval():
     return jsonify(data)
     conn.close()
 
+@app.route('/api/addAdmin', methods=['POST'])
+def post_add_admin():
+    admin_data = request.json
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    admin_id = admin_data["admin_id"]
+    admin_password = admin_data["admin_password"]
+    admin_username = admin_data["admin_username"]
+    query = f'INSERT INTO admin_data VALUES({admin_id}, {admin_username}, {admin_password})'
+    cursor.execute(query)
+    conn.commit()
+    conn.close()
+
+@app.route('/api/accountSettings', methods=['POST'])
+def post_account_settings():
+    admin_data = request.json
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    #To be implemented
+    conn.commit()
+    conn.close()
+
 if __name__ == '__main__':
     app.run(debug=True)
