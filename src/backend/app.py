@@ -6,6 +6,7 @@ MYSQL_USER = 'root'
 MYSQL_PASSWORD = 'root'
 MYSQL_HOST = 'localhost'
 MYSQL_DATABASE = 'code_summarizer'
+DB_LEN = 1
 
 def get_db_connection():
     # Establish a connection to the MySQL database
@@ -44,6 +45,7 @@ categories = ['Software Developer',
     'AI Engineer',
     'Student',
     'Other']
+
 @app.route('/api/categories', methods=['GET'])
 def get_categories():
     return jsonify(categories)
@@ -132,30 +134,41 @@ def get_category_user_eval():
              "usefulness" : usefulness,
              "consistency" : consistency,
              "count" : count}
-    return jsonify(data)
     conn.close()
+    return jsonify(data)
+    
 
 @app.route('/api/addAdmin', methods=['POST'])
 def post_add_admin():
+    global DB_LEN
     admin_data = request.json
     conn = get_db_connection()
     cursor = conn.cursor()
-    admin_id = admin_data["admin_id"]
     admin_password = admin_data["admin_password"]
     admin_username = admin_data["admin_username"]
-    query = f'INSERT INTO admin_data VALUES({admin_id}, {admin_username}, {admin_password})'
+    query = f'INSERT INTO admin_data(admin_username,admin_password) VALUES("{admin_username}", "{admin_password}")'
+    DB_LEN += 1
     cursor.execute(query)
-    conn.commit()
+    conn.commit() 
+    print(query)
+    data = { "new_admin" : admin_username}
     conn.close()
+    return jsonify(data)
 
-@app.route('/api/accountSettings', methods=['POST'])
-def post_account_settings():
-    admin_data = request.json
+@app.route('/api/adminData', methods=['GET'])
+def get_admin_data():
+    search_term = request.args.get('search')
     conn = get_db_connection()
     cursor = conn.cursor()
-    #To be implemented
-    conn.commit()
-    conn.close()
+    query = f'SELECT * FROM admin_data where admin_id = {search_term}'
+    print(query)
+    cursor.execute(query)
+    rows = cursor.fetchall()
+    row = rows[0]
+    data = { "admin_username" : row[1],
+             "admin_password" : row[2]}
+
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run(debug=True)
