@@ -170,58 +170,24 @@ def get_admin_data():
 
     return jsonify(data)
 
-@app.route('/api/translate', methods=['POST'])
-def translate():
-    data = request.json
-    summary = data.get('summary', '')
-    target_language = data.get('targetLanguage', 'en')
+import requests
 
-    translator = Translator()
-    translated_summary = translator.translate(summary, dest=target_language).text
+@app.route('/api/submitFeedback', methods=['POST'])
+def submit_feedback():
+    try:
+        # Get feedback data from request
+        feedback_data = request.json
+        # Connect to MySQL
+        cur = mysql.connection.cursor()
+        # Insert feedback into MySQL database
+        cur.execute("INSERT INTO feedback (accuracy, consistency, uniqueness, additional) VALUES (%s, %s, %s, %s)",
+                    (feedback_data['accuracy'], feedback_data['consistency'], feedback_data['uniqueness'], feedback_data['additional']))
+        mysql.connection.commit()
+        cur.close()
+        return jsonify(message='Feedback submitted successfully'), 201
+    except Exception as e:
+        return jsonify(error=str(e)), 500
 
-    return jsonify({'translatedSummary': translated_summary})
-
-# Dummy data for demonstration
-code_summaries = [
-    {"id": 1, "summary": "This is a summary for code 1"},
-    {"id": 2, "summary": "This is a summary for code 2"},
-    {"id": 3, "summary": "This is a summary for code 3"}
-]
-
-@app.route('/api/codeSummaries')
-def get_code_summaries():
-    return jsonify(code_summaries)
-
-# Define the upload folder
-UPLOAD_FOLDER = 'uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-@app.route('/api/uploadSingleFile', methods=['POST'])
-def upload_single_file():
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file part'}), 400
-
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({'error': 'No selected file'}), 400
-
-    if file:
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return jsonify({'success': f'File {filename} uploaded successfully'}), 200
-
-@app.route('/api/uploadMultipleFiles', methods=['POST'])
-def upload_multiple_files():
-    uploaded_files = request.files.getlist('files')
-    for file in uploaded_files:
-        if file.filename == '':
-            return jsonify({'error': 'No selected file'}), 400
-
-    for file in uploaded_files:
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-    return jsonify({'success': 'All files uploaded successfully'}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
