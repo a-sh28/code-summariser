@@ -1,25 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap';
 
 function Translator() {
-  const [summaryText, setSummaryText] = useState('');
+  const [originalText, setOriginalText] = useState('');
   const [translatedText, setTranslatedText] = useState('');
-  const [language, setLanguage] = useState('en'); // Default language to English
+  const [targetLanguage, setTargetLanguage] = useState('');
+  const [languageOptions, setLanguageOptions] = useState([
+    { language: 'fr', name: 'French' },
+    { language: 'es', name: 'Spanish' },
+    { language: 'de', name: 'German' },
+    { language: 'it', name: 'Italian' },
+    { language: 'nl', name: 'Dutch' },
+    { language: 'pt', name: 'Portuguese' },
+  ]);
 
   const handleTranslate = async () => {
+    if (originalText.length > 500) {
+      alert('Maximum allowed characters exceeded (500 characters)');
+      return;
+    }
     try {
-      const response = await fetch('http://localhost:5000/api/translate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          summary: summaryText,
-          targetLanguage: language
-        })
-      });
+      const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(originalText)}&langpair=en|${targetLanguage}`);
+      if (!response.ok) {
+        throw new Error('Translation request failed');
+      }
       const data = await response.json();
-      setTranslatedText(data.translatedSummary);
+      setTranslatedText(data.responseData.translatedText);
     } catch (error) {
       console.error('Error translating text:', error);
     }
@@ -28,25 +34,27 @@ function Translator() {
   return (
     <Container>
       <Row className="justify-content-center mt-5">
-        <Col xs={12} md={6}>
+        <Col xs={12} md={8}>
           <Card>
             <Card.Body>
-              <h3 className="mb-4">Translate Code Summary</h3>
+              <h3 className="mb-4">Translate Text</h3>
               <Form>
-                <Form.Group controlId="summaryText">
-                  <Form.Label>Enter Code Summary</Form.Label>
-                  <Form.Control as="textarea" rows={5} value={summaryText} onChange={(e) => setSummaryText(e.target.value)} />
+                <Form.Group controlId="originalText">
+                  <Form.Label>Original Text</Form.Label>
+                  <Form.Control as="textarea" rows={5} value={originalText} onChange={(e) => setOriginalText(e.target.value)} />
                 </Form.Group>
-                <Form.Group controlId="language">
-                  <Form.Label>Select Language</Form.Label>
-                  <Form.Control as="select" value={language} onChange={(e) => setLanguage(e.target.value)}>
-                    <option value="en">English</option>
-                    <option value="fr">French</option>
-                    <option value="es">Spanish</option>
-                    {/* Add more languages as needed */}
-                  </Form.Control>
+                <Form.Group as={Row} controlId="targetLanguage">
+                  <Form.Label column md={3}>Target Language</Form.Label>
+                  <Col md={9}>
+                    <Form.Control as="select" value={targetLanguage} onChange={(e) => setTargetLanguage(e.target.value)} style={{ width: '100%' }}>
+                      <option value="">Select Language</option>
+                      {languageOptions.map((language, index) => (
+                        <option key={index} value={language.language}>{language.name}</option>
+                      ))}
+                    </Form.Control>
+                  </Col>
                 </Form.Group>
-                <Button variant="primary" onClick={handleTranslate}>Translate</Button>
+                <Button variant="primary" onClick={handleTranslate} disabled={!targetLanguage}>Translate</Button>
               </Form>
               {translatedText && (
                 <div className="mt-4">
