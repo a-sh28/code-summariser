@@ -178,15 +178,20 @@ def submit_feedback():
         # Get feedback data from request
         feedback_data = request.json
         # Connect to MySQL
-        cur = mysql.connection.cursor()
+        conn = get_db_connection()
+        cursor = conn.cursor()
         # Insert feedback into MySQL database
-        cur.execute("INSERT INTO feedback (accuracy, consistency, uniqueness, additional) VALUES (%s, %s, %s, %s)",
-                    (feedback_data['accuracy'], feedback_data['consistency'], feedback_data['uniqueness'], feedback_data['additional']))
-        mysql.connection.commit()
-        cur.close()
+        cursor.execute("INSERT INTO feedback (accuracy, consistency, naturalness, usefulness, additional) VALUES (%s, %s, %s, %s, %s)",
+                    (feedback_data['accuracy'], feedback_data['consistency'], feedback_data['naturalness'], feedback_data['usefulness'], feedback_data['additional']))
+        # Commit transaction
+        conn.commit()
+        cursor.close()
+        conn.close()
         return jsonify(message='Feedback submitted successfully'), 201
     except Exception as e:
-        return jsonify(error=str(e)), 500
+        # Log error message
+        print(f"Error submitting feedback: {str(e)}")
+        return jsonify(error='Failed to submit feedback'), 500
 
 
 if __name__ == '__main__':
