@@ -171,26 +171,19 @@ def get_admin_data():
     return jsonify(data)
 
 import requests
-
 @app.route('/api/submitFeedback', methods=['POST'])
 def submit_feedback():
     try:
-        # Get feedback data from request
         feedback_data = request.json
-        # Connect to MySQL
         conn = get_db_connection()
         cursor = conn.cursor()
-        # Insert feedback into MySQL database
-        cursor.execute("INSERT INTO feedback (accuracy, consistency, naturalness, usefulness, additional) VALUES (%s, %s, %s, %s, %s)",
-                    (feedback_data['accuracy'], feedback_data['consistency'], feedback_data['naturalness'], feedback_data['usefulness'], feedback_data['additional']))
-        # Commit transaction
+        cursor.execute("INSERT INTO code_summary (summary, naturalness, usefulness, consistency, feedback) VALUES (%s, %s, %s, %s, %s)",
+                    (feedback_data['summary'], feedback_data['naturalness'], feedback_data['usefulness'], feedback_data['consistency'], feedback_data['additional']))
         conn.commit()
         cursor.close()
         conn.close()
         return jsonify(message='Feedback submitted successfully'), 201
     except Exception as e:
-        # Log error message
-        print(f"Error submitting feedback: {str(e)}")
         return jsonify(error='Failed to submit feedback'), 500
 
 
