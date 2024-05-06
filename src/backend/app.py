@@ -175,16 +175,19 @@ import requests
 def submit_feedback():
     try:
         feedback_data = request.json
+        # Dummy user_id for testing
+        user_id = 1
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO code_summary (summary, naturalness, usefulness, consistency, feedback) VALUES (%s, %s, %s, %s, %s)",
-                    (feedback_data['summary'], feedback_data['naturalness'], feedback_data['usefulness'], feedback_data['consistency'], feedback_data['additional']))
+        cursor.execute("INSERT INTO code_summary (user_id, summary, naturalness, usefulness, consistency, feedback) VALUES (%s, %s, %s, %s, %s, %s)",
+                    (user_id, feedback_data['summary'], feedback_data['naturalness'], feedback_data['usefulness'], feedback_data['consistency'], feedback_data['additional']))
         conn.commit()
         cursor.close()
         conn.close()
         return jsonify(message='Feedback submitted successfully'), 201
     except Exception as e:
         return jsonify(error='Failed to submit feedback'), 500
+
 
 
 if __name__ == '__main__':
