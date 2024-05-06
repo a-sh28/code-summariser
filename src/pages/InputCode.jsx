@@ -1,136 +1,114 @@
 import React, { useState } from 'react';
-import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function InputCode() {
-  const [codeFiles, setCodeFiles] = useState([]);
+  const [files, setFiles] = useState([]); // For handling file inputs
+  const [code, setCode] = useState(''); // For handling manual code input
+  const [summary, setSummary] = useState('');
+  const [feedback, setFeedback] = useState({
+    accuracy: '3',
+    consistency: '',
+    naturalness: '',
+    usefulness: '',
+    additional: ''
+  });
+  const [message, setMessage] = useState('');
 
-  const handleFileChange = (e) => {
-    const files = e.target.files;
-    const newCodeFiles = [];
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const reader = new FileReader();
-
-      reader.onload = (event) => {
-        const codeContent = event.target.result;
-        const summary = generateSummary(codeContent);
-        newCodeFiles.push({ file, codeContent, summary, feedback: { accuracy: '', consistency: '', uniqueness: '', additional: '' } });
-
-        if (newCodeFiles.length === files.length) {
-          setCodeFiles(newCodeFiles);
-        }
-      };
-
-      reader.readAsText(file);
-    }
+  const handleFileChange = (event) => {
+    setFiles(Array.from(event.target.files));
+    setMessage('');
+    setSummary(''); // Reset summary when new files are picked
   };
 
-  const generateSummary = (codeContent) => {
-    // Add your code summarization logic here
-    return "Summary for the code file";
+  const handleFeedbackChange = (e) => {
+    const { name, value } = e.target;
+    setFeedback(prevFeedback => ({
+      ...prevFeedback,
+      [name]: value
+    }));
   };
 
-  const handleFeedbackChange = (index, feedbackType, value) => {
-    const updatedCodeFiles = [...codeFiles];
-    updatedCodeFiles[index].feedback[feedbackType] = value;
-    setCodeFiles(updatedCodeFiles);
-  };
-
-  const handleSubmitFeedback = async (index) => {
-    const codeFile = codeFiles[index];
+  const handleSubmitFeedback = async (e) => {
+    e.preventDefault();
     try {
       const response = await fetch('http://localhost:5000/api/submitFeedback', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          codeFile
-        })
+        body: JSON.stringify(feedback)
       });
       const data = await response.json();
-      console.log("Feedback submitted for code file:", data);
+      alert('Feedback submitted successfully');
     } catch (error) {
-      console.error('Error submitting feedback:', error);
+      alert('Failed to submit feedback');
+    }
+  };
+
+  const handleFileUpload = async (e) => {
+    e.preventDefault();
+    if (files.length === 0) {
+      setMessage('Please select files before uploading.');
+      return;
+    }
+
+    const formData = new FormData();
+    files.forEach(file => formData.append('files[]', file));
+
+    try {
+      const response = await fetch('http://localhost:5000/api/uploadFiles', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to upload files.');
+      }
+      setSummary(data.summary || 'No summary available.');
+    } catch (error) {
+      setMessage(error.message);
     }
   };
 
   return (
-    <Container>
-      <Row className="justify-content-center mt-5">
-        <Col xs={12} md={6}>
-          <Card>
-            <Card.Body>
-              <h3 className="mb-4">Upload Code</h3>
-              <Form>
-                <Form.Group controlId="codeFiles">
-                  <Form.Label>Upload Code Files</Form.Label>
-                  <Form.Control type="file" multiple onChange={handleFileChange} />
-                </Form.Group>
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-      {codeFiles.map((codeFile, index) => (
-        <Row key={index} className="justify-content-center mt-3">
-          <Col xs={12} md={10}>
-            <Card>
-              <Card.Body>
-                <Row>
-                  <Col xs={12} md={8}>
-                    <h5 className="mb-3">{codeFile.file.name}</h5>
-                    <p><strong>Summary:</strong></p>
-                    <p>{codeFile.summary}</p>
-                  </Col>
-                  <Col xs={12} md={4}>
-                    <Form.Group controlId={`accuracy_${index}`}>
-                      <Form.Label>Accuracy:</Form.Label>
-                      <Form.Control
-                        type="number"
-                        placeholder="Enter accuracy"
-                        value={codeFile.feedback.accuracy}
-                        onChange={(e) => handleFeedbackChange(index, 'accuracy', e.target.value)}
-                      />
-                    </Form.Group>
-                    <Form.Group controlId={`consistency_${index}`}>
-                      <Form.Label>Consistency:</Form.Label>
-                      <Form.Control
-                        type="number"
-                        placeholder="Enter consistency"
-                        value={codeFile.feedback.consistency}
-                        onChange={(e) => handleFeedbackChange(index, 'consistency', e.target.value)}
-                      />
-                    </Form.Group>
-                    <Form.Group controlId={`uniqueness_${index}`}>
-                      <Form.Label>Uniqueness:</Form.Label>
-                      <Form.Control
-                        type="number"
-                        placeholder="Enter uniqueness"
-                        value={codeFile.feedback.uniqueness}
-                        onChange={(e) => handleFeedbackChange(index, 'uniqueness', e.target.value)}
-                      />
-                    </Form.Group>
-                    <Form.Group controlId={`additional_${index}`}>
-                      <Form.Label>Additional:</Form.Label>
-                      <Form.Control
-                        as="textarea"
-                        rows={3}
-                        placeholder="Enter additional feedback"
-                        value={codeFile.feedback.additional}
-                        onChange={(e) => handleFeedbackChange(index, 'additional', e.target.value)}
-                      />
-                    </Form.Group>
-                    <Button variant="primary" onClick={() => handleSubmitFeedback(index)}>Submit Feedback</Button>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      ))}
-    </Container>
+    <div className="container-fluid h-100">
+      <div className="row h-100">
+        <div className="col-12 d-flex flex-column p-4">
+          <input
+            type="file"
+            onChange={handleFileChange}
+            multiple
+            className="form-control mb-2"
+          />
+          <button onClick={handleFileUpload} className="btn btn-primary mb-2">Upload Files</button>
+          <textarea
+            className="form-control mb-2"
+            placeholder="Summary generated"
+            value={summary}
+            readOnly
+          ></textarea>
+          <div>
+            <h4>FEEDBACK</h4>
+            <form onSubmit={handleSubmitFeedback}>
+              {Object.entries(feedback).map(([key, value]) => (
+                <div className="form-group" key={key}>
+                  <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
+                  {key === 'accuracy' ? (
+                    <select className="form-control" name={key} value={value} onChange={handleFeedbackChange}>
+                      {[1, 2, 3, 4, 5].map(num => <option key={num} value={num}>{num}</option>)}
+                    </select>
+                  ) : (
+                    <input type="text" className="form-control" name={key} value={value} onChange={handleFeedbackChange} />
+                  )}
+                </div>
+              ))}
+              <button type="submit" className="btn btn-primary">Submit Feedback</button>
+            </form>
+          </div>
+          {message && <div className="alert alert-info">{message}</div>}
+        </div>
+      </div>
+    </div>
   );
 }
 
