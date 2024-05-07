@@ -5,8 +5,8 @@ import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 function AccountSettings() {
   const [adminUsername, setAdminUsername] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
-  // Data mocked currently, must retrieve it from the sign in page 
-  const [adminId, setAdminId] = useState(1);
+
+  let adminId = localStorage.getItem('adminId');
 
   useEffect(() => {
     // Fetch user data from the server
