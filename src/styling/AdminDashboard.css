@@ -1,0 +1,60 @@
+.app {
+  display: flex;
+  height: 100vh; /* Make the container cover the entire height of the viewport */
+}
+
+.navigationbar {
+  flex: 1; /* Take up 1 part of the available space */
+  display: flex;
+  flex-direction: column;
+  background-color: #99CCFF; /* Just for visualization */
+}
+
+
+.container2 {
+  flex: 5; /* Take up 5 parts of the available space */
+  background-color: #FFFFFF; /* Just for visualization */
+  display: flex;
+  flex-direction: column;
+}
+
+.sub-container1 {
+  flex: 1; /* Take up equal parts of the available space */
+  border: 1px solid #000000; /* Just for visualization */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;
+}
+
+.sub-container2 {
+  flex: 1; /* Take up equal parts of the available space */
+  border: 1px solid #ccc; /* Just for visualization */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;
+}
+
+.renderarea {
+  flex-grow: 8; /* Take up 7 parts of the available space */
+}
+
+.heading {
+  flex: 1; /* Take up 1 part of the available space */
+  border-bottom: 1px solid black; /* Add a bottom border */
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  flex-direction: row;
+}
+
+.top{
+  flex-grow: 1;
+}
+.middle {
+  flex-grow: 5; /* Take up 5 times more space than other sub-containers */
+}
+
+.bottom{
+  flex-grow: 1;
+}
