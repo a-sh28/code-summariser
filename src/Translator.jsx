@@ -13,12 +13,12 @@ function Translator() {
     { language: 'nl', name: 'Dutch' },
     { language: 'pt', name: 'Portuguese' },
   ]);
+  const [cardWidth, setCardWidth] = useState('500px'); // Initial width
 
   const handleTranslate = async () => {
     if (originalText.length > 500) {
       alert('Maximum allowed characters exceeded (500 characters)');
       return;
-
     }
     try {
       const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(originalText)}&langpair=en|${targetLanguage}`);
@@ -27,6 +27,7 @@ function Translator() {
       }
       const data = await response.json();
       setTranslatedText(data.responseData.translatedText);
+      setCardWidth('800px'); // Change width after translation
     } catch (error) {
       console.error('Error translating text:', error);
     }
@@ -34,11 +35,13 @@ function Translator() {
 
   return (
     <Container>
-      <Row className="justify-content-center mt-5">
-        <Col xs={12} md={8}>
-          <Card>
-            <Card.Body>
-              <h3 className="mb-4">Translate Text</h3>
+      <Card className="shadow" style={{ width: cardWidth, height: '400px' }}>
+        <Card.Header style={{ backgroundColor: '#99CCFF' }}>
+          <h5>Translate Text</h5>
+        </Card.Header>
+        <Card.Body>
+          <Row>
+            <Col>
               <Form>
                 <Form.Group controlId="originalText">
                   <Form.Label>Original Text</Form.Label>
@@ -57,16 +60,18 @@ function Translator() {
                 </Form.Group>
                 <Button variant="primary" onClick={handleTranslate} disabled={!targetLanguage}>Translate</Button>
               </Form>
-              {translatedText && (
+            </Col>
+            {translatedText && (
+              <Col md={6}>
                 <div className="mt-4">
                   <h5>Translated Text:</h5>
                   <p>{translatedText}</p>
                 </div>
-              )}
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+              </Col>
+            )}
+          </Row>
+        </Card.Body>
+      </Card>
     </Container>
   );
 }
