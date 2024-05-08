@@ -78,24 +78,24 @@ function SingleCode() {
       <Container>
         <Row className="d-flex justify-content-center align-items-center">
           <Col>
-            <Card className="shadow" style={{ width: '800px', height: '550px' }}>
+            <Card className="shadow" style={{ width: '930px', height: '480px' }}>
               <Card.Header style={{ backgroundColor: '#99CCFF' }}>
                 <h3>Code Summarization</h3>
               </Card.Header>
               <Card.Body>
                 <Row>
                   <Col>
-                    <textarea className="form-control my-2" placeholder="Input code" style={{ width: '350px', height: '250px' }} value={code} onChange={(e) => setCode(e.target.value)}></textarea>
+                    <textarea className="form-control my-2" placeholder="Input code" style={{ width: '500px', height: '180px' }} value={code} onChange={(e) => setCode(e.target.value)}></textarea>
                     <button onClick={generatesummary} style={{ backgroundColor: "#0066CC", borderColor: "#00000" }} className="btn btn-primary mb-2">Generate Summary</button>
-                    <textarea className="form-control my-2" placeholder="Summary generated" value={summary} style={{ width: '350px', height: '100px' }} readOnly></textarea>
+                    <textarea className="form-control my-2" placeholder="Summary generated" value={summary} style={{ width: '500px', height: '150px' }} readOnly></textarea>
                   </Col>
                   <Col>
-                    <Card className="shadow" style={{ width: '310px', height: '440px' }}>
+                    <Card className="shadow" style={{ width: '310px', height: '360px' }}>
                       <Card.Header style={{ backgroundColor: '#99CCFF' }}>
                         <h5>Feedback</h5>
                       </Card.Header>
                       <Card.Body>
-                        <form onSubmit={submitfeedback} className="w-100">
+                        <form onSubmit={submitfeedback} className="w-80">
                           <div className="form-group">
                             <label>Consistency:</label>
                             <select className="form-control" value={consistency || ''} onChange={handleConsistencyChange}>
@@ -125,7 +125,7 @@ function SingleCode() {
                           </div>
                           <div className="form-group">
                             <label>Verbal Feedback:</label>
-                            <textarea className="form-control" value={verbalFeedback} onChange={handleVerbalFeedbackChange}></textarea>
+                            <textarea className="form-control" value={verbalFeedback} style={{ width: '280px', height: '20px' }} onChange={handleVerbalFeedbackChange}></textarea>
                           </div>
                           <button type="submit" style={{ marginTop: "2%", backgroundColor: "#0066CC", borderColor: "#00000" }} className="btn btn-primary">Submit Feedback</button>
                         </form>
