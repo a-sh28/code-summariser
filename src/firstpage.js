@@ -10,7 +10,6 @@ import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import './firstpage.css';
 import { Link } from 'react-router-dom';
 
-
 const defaultTheme = createTheme();
 
 function FirstPage() {
@@ -21,11 +20,6 @@ function FirstPage() {
         <Box className="title-box">
           <Typography variant="h3" component="h1" color="black" fontWeight="bold">
             Code Summariser and Evaluator
-          </Typography>
-        </Box>
-        <Box className="title-box">
-          <Typography variant="h5" component="h1" color="black" fontWeight="bold">
-            Get started to experience seamless summarisation and translation!
           </Typography>
         </Box>
       </Box>
@@ -50,7 +44,6 @@ function FirstPage() {
             </Link>
             <Link to ="/signin">
             <Button
-            
               sx={{ mt: 3, mb: 2 }}
               type="submit"
               fullWidth

@@ -33,6 +33,7 @@ function AdminDashboard() {
     const [isClicked1, setIsClicked1] = useState(false);
     const [isClicked2, setIsClicked2] = useState(true);
     const [isClicked3, setIsClicked3] = useState(false);
+    const [isClicked4, setIsClicked4] = useState(false);
 
     // Define the style object based on the clicked state
     const containerStyle1 = {
@@ -50,13 +51,18 @@ function AdminDashboard() {
       backgroundColor: isClicked3 ? '#0066CC' : 'transparent'// Change background color based on the clicked state
     };
 
+    const containerStyle4 = {
+      cursor: 'pointer',
+      backgroundColor: isClicked4 ? '#0066CC' : 'transparent'// Change background color based on the clicked state
+    };
+
   return (
     <div className="app">
       <div className="navigationbar">
         <div className="sub-container1 top" >Admin Mode</div>
         <div className="sub-container1 top" style={containerStyle1} onClick={handleAddAdminClick}>Add an Admin</div>
         <div className="sub-container1 top" style={containerStyle2} onClick={handleViewUserStateClick}>View User Stats</div>
-        <div className="sub-container1 top" style={containerStyle2} onClick ={() =>window.location.href = '/userdashboard'}>Change to user mode</div>
+        <div className="sub-container1 top" style={containerStyle4} onClick ={() =>window.location.href = '/userdashboard'}>Change to user mode</div>
         <div className="sub-container1 middle"></div>
         <div className="sub-container1 bottom" style={containerStyle3} onClick={handleAccountSettingsClick} >Account Settings</div>
       </div>

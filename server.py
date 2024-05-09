@@ -142,18 +142,23 @@ def checkpassword():
 
 @app.route('/api/usernames', methods=['GET'])
 def get_usernames():
-    search_term = request.args.get('search')
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute('SELECT user_username FROM user_data')
-    usernames = cursor.fetchall()
-    usernames = [row[0] for row in usernames] # Extract usernames from query result
-    print(usernames)
-    conn.close()
-
-    filtered_usernames = [username for username in usernames if username.startswith(search_term)]
-    print(filtered_usernames)
-    return jsonify(filtered_usernames)
+    try:
+        search_term = request.args.get('search')
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('SELECT user_username FROM user_data')
+        usernames = cursor.fetchall()
+        usernames = [row[0] for row in usernames] 
+        print(usernames)
+        conn.close()
+        filtered_usernames = [username for username in usernames if username.startswith(search_term)]
+        if filtered_usernames:
+            print(filtered_usernames)
+            return jsonify(filtered_usernames)
+        else:
+            print("no filtered usernames")
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 categories = ['Software Developer',
