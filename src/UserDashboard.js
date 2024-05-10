@@ -1,14 +1,19 @@
+
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styling/AdminDashboard.css';
 import InputCode from './InputCode';
 import Translator from './Translator';
 import SingleCode from './SingleCode';
-
+import {Button} from "react-bootstrap";
 
 function UserDashboard() {
   const [activeComponent, setActiveComponent] = useState('viewSummary');
-
+  const handlelogout = () =>
+    {
+      window.alert("Are you sure you want to logout?");
+      window.location.href="/";
+    }
 
   const handleTranslatorClick = () => {
     setActiveComponent('translator');
@@ -63,6 +68,7 @@ function UserDashboard() {
       <div className="container2">
         <div className="sub-container2 heading">
           <h4>Code Summarizer and Evaluation Tool</h4>
+          <Button onClick ={handlelogout}>Logout</Button> 
         </div>
         <div className="sub-container2 renderarea">
           {activeComponent === 'translator' && <Translator />}
