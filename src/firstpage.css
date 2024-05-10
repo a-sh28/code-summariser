@@ -1,71 +1,64 @@
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import DataObjectRoundedIcon from '@mui/icons-material/DataObjectRounded';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import './firstpage.css';
+import { Link } from 'react-router-dom';
 
+const defaultTheme = createTheme();
 
-.page-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background-image: url('https://www.integratedots.com/wp-content/uploads/2017/05/objtttcodes-p2-e1495076767864.jpg');
-    background-size: cover;
-    background-position: center;
-    opacity: 0; 
-    animation: fadeIn 6s forwards; 
-}
-@keyframes fadeIn {
-    from {
-        opacity: 0; 
-    }
-    to {
-        opacity: 0.4; 
-    }
-}
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .avatar {
-    margin: 16px;
-    background-color: black;
-    width: 120px;
-    height: 120px;
-  }
-  
-  .button {
-    margin-top: 40px; 
-    margin-bottom: 40px; 
-    width: 100%;
+function FirstPage() {
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <CssBaseline />
+      <Box className="title-container" sx={{ textAlign: 'center', marginY: 5 }}>
+        <Box className="title-box">
+          <Typography variant="h3" component="h1" color="black" fontWeight="bold">
+            Code Summariser and Evaluator
+          </Typography>
+        </Box>
+      </Box>
+      <div className="page-background"></div> {/* Add the background */}
+      <Container component="main" maxWidth="xs" className='page'>
+        <Box className="container">
+          <Avatar className="avatar" sx={{ m: 2, bgcolor: 'black', width: 120, height: 120 }}>
+            <DataObjectRoundedIcon fontSize="large" />
+          </Avatar>
+          <Box width="100%">
+           <Link to ="/signup">
+            <Button
+              sx={{ mt: 5, mb: 2 }}
+              variant="outlined"
+              startIcon={<ExitToAppOutlinedIcon />}
+              fullWidth
+              className="button button-sign-up"
+              color="primary"
+            >
+              Sign Up
+            </Button>
+            </Link>
+            <Link to ="/signin">
+            <Button
+              sx={{ mt: 3, mb: 2 }}
+              type="submit"
+              fullWidth
+              variant="contained"
+              className="button"
+              color="primary"
+            >
+              Sign in
+            </Button>
+            </Link>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
+  );
 }
 
-.button-sign-up {
-    margin-bottom: 40px;
-}
-
-.title-container {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .title-box {
-    display: inline-block;
-    border: 2px solid black;
-    border-radius: 10px; 
-    padding: 10px 20px;
-    margin: 10px;
-    transition: transform 0.3s ease;
-  }
-  
-  .title-box:hover {
-    transform:  scale(1.75);
-  }
-  
-  .title-box:last-child:hover {
-    transform: scale(1.5);
-  }
-  .button-sign-up:hover,
-.button:hover {
-  transform: translateY(-20px) scale(1.5);
-}
+export default FirstPage;
