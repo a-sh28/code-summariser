@@ -6,7 +6,7 @@ import { Eye, EyeSlash } from 'react-bootstrap-icons';
 function AccountSettings() {
   const [adminUsername, setAdminUsername] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
-  const [adminId, setAdminId] = useState(1);
+  const [adminId, setAdminId] = useState(localStorage.getItem('adminid'));
   const [showPassword, setShowPassword] = useState(false);
   const [showChangePasswordForm, setShowChangePasswordForm] = useState(false);
   const [newPassword, setNewPassword] = useState('');
@@ -23,7 +23,7 @@ function AccountSettings() {
       setAdminUsername(data["admin_username"]);
       setAdminPassword(data["admin_password"]);
     } catch (error) {
-      console.error('Error fetching usernames:', error);
+      console.error('Error fetching data:', error);
     }
   };
 
