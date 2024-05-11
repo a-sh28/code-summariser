@@ -30,6 +30,10 @@ function AdminDashboard() {
     setIsClicked2(false);
   }
 
+  const handleLogOut = () => {
+    window.location.href = '/signin';
+  }
+
   // State to manage whether the container is clicked or not
     const [isClicked1, setIsClicked1] = useState(false);
     const [isClicked2, setIsClicked2] = useState(true);
@@ -70,7 +74,7 @@ function AdminDashboard() {
       <div className="container2">
         <div className="sub-container2 heading">
           <div><h4>Code Summarizer and Evaluation Tool</h4></div>
-          <div>Logout</div></div>
+          <div onClick={handleLogOut}>Logout</div></div>
         <div className="sub-container2 renderarea">  {activeComponent === 'addAdmin' && <AddAdmin />}
                                                      {activeComponent === 'viewUserStats' && <ViewUserStats/>}
                                                      {activeComponent === 'accountSettings' && <AccountSettings/>}
