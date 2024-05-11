@@ -1,70 +1,108 @@
-# Getting Started with Create React App
+# Code Summarization and Evaluation Tool (CSET)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+## Team Members:
+1. Aarthi Nunna - [﻿anunna@umass.edu](mailto:anunna@umass.edu)  - **Spire ID:** 34042804
+2. Ashwini Ramesh Kumar - [﻿ashwinirames@umass.edu](mailto:ashwinirames@umass.edu)  -  **Spire ID:** 34025576
+3. Dhamini Devaraj - [﻿ddevaraj@umass.edu](mailto:ddevaraj@umass.edu)  - **Spire ID:** 34048503
+4. Janani Pasham- [﻿jpasham@umass.edu](mailto:jpasham@umass.edu)  - **Spire ID:** 34023678
+5. Rashmi Vagha - [﻿rvagha@umass.edu](mailto:rvagha@umass.edu)  - **Spire ID:** 33617396
+---
 
-### `npm start`
+## Running our Code:
+To run our code, please perform the following steps:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. First clone our repository into your local system.
+2. Within the _**src **_directory, run the below command to launch the** front-end**: 
+    1. To launch the front-end run:  (Running on Port 3000)
+`npm start`  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1.  Within the main directory of the cloned repository, run the below command to launch the **back-end Flask server**: 
+> **NOTE:** Before starting the Flask Server, ensure to insert you Gemini PaLM API Key! Refer to [﻿aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)  to create your API Key!
 
-### `npm test`
+1. To launch the back-end run:  (Running on Port 5000)
+`python server.py`  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. To create the SQL database and the tables within the database, launch an **SQL server** (For eg: MySQL WorkBench) and run our: 
+`DB_script.txt` 
 
-### `npm run build`
+Our application is now deployed successfully and will be able at: [﻿http://localhost:3000 ](http://localhost:3000/) 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Remember to Sign Up before you start summarizing!
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## **Main Features of our Project:**
+- Code Summarization - The summarization of a given input code is done with the help of Gemini PaLM API that receives a prompt of the form: 
+> Summarise the following code. It must be natural, useful and consistent. The summary's should be in bullet points and its length must be proportional to the input code length. It must only explain the logic of the code, not the program syntax and semantics{}
 
-### `npm run eject`
+- Translation - We understand that users might find it easier to understand a produced summary in their native or preferred language over English. For this purpose, we provide users with the ability to translate their summaries into their preferred language. We do so with the help of the MyMemory API. 
+- User Category - We ask users to choose a category they feel most closely aligned to such as Student, AI Engineer, Business Data Analyst, etc. This information is used by the admin to view statistics averaged according to a user's category, i.e., the admin gains extra insight into the model generated summaries and an understanding of how these summaries are perceived by different types of users. 
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Framework:
+| Application Tier | Framework Used |
+| ----- | ----- |
+| Front-End | ReactJS |
+| Back-End | Flask |
+| Database | MySQL |
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Large Language Models and APIs Used:
+| Requirement | Model/API Used |
+| ----- | ----- |
+| Code Summarization | Gemini PaLM API (Requires API Key, used Free-Tier functionalities) |
+| Translation | MyMemory API (Free, OpenSource API) |
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Certain Design Choices:
+- We decided to use two different APIs or LLMs to perform the code summarization and translation as this reduces the probability of error, and allows us to user LLMs/API's that are more suited for the task of either translation or code summarization. For instance, MyMemory is meant purely for translation and is thus inclined to translate text better than Gemini PaLM which is trained on a huge dataset more suited for text generation and code summarization.
+- We use PaLM API due to its ease of use, and as it can be accessed conveniently through its API as opposed to use locally running model such as Ollama, which also took a significant amount of time for generating output when prompted.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Overview of Main CSET Components: 
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Authentication:**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- SignIn -
+- SignUp - 
+- 
+**Admin Dashboard:**
 
-### Code Splitting
+- AccountSettings - The admin views their username and password. They can also change their password.
+- AddAdmin - The admin has the ability to add other admins.
+- ViewUserStats - The admin can view the user statistics in the following manner displayed both numerically and as a bar graph:
+    - CategoryUsersEval : Admin can view the statistics of a particular category of users.
+    - SingleUserEval : Admin can view the statistics of a single user.
+    - AllUsersEval : Admin can view the statistics of all users averaged together.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+**User Dashboard:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- InputCode - The users can input a file of code snippets and obtain summaries for each code snippet contained in the file. They can also provide feedback for each summary generated.
+- SingleCode - The users can paste a snippet of code, obtain the summary and provide feedback for the same. 
+- Translator - The users can paste a summary of their choice and translate it to their desire language. 
+- UserAccountSettings - the user can view their username and password. They can also change their password.
+- ViewSummaries - The users can view all their previously requested code summaries and their respective feedbacks. 
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## Testing Details:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+1. Unit Testing - **Jest** 
+2. Integration Testing - **Postman** 
+3. Equivalence Testing - **Blackbox Testing**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+**Add more details on completion of testing**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+
+
+
