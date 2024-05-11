@@ -5,6 +5,7 @@ function ViewSummaries() {
   const [summaries, setSummaries] = useState([]);
   const [cardWidth, setCardWidth] = useState('800px'); // Initial width
   const [userId, setUserId] = useState(localStorage.getItem('userid'));
+  const [userName,setUserName] = useState('');
 
   useEffect(() => {
     // Fetch summaries for the given user ID from the backend
@@ -13,10 +14,11 @@ function ViewSummaries() {
     async function fetchSummaries() {
       try {
         const response = await fetch(`http://127.0.0.1:5000/api/summaries?userId=${userId}`);
-        if (!response.ok) {
+        const data = await response.json();
+         if (!response.ok) {
           throw new Error('Failed to fetch summaries');
         }
-        const data = await response.json();
+        setUserName(data[0].username);
         setSummaries(data);
       } catch (error) {
         console.error('Error fetching summaries:', error);
@@ -39,7 +41,7 @@ function ViewSummaries() {
     <Container>
       <Card className="shadow" style={{ width: cardWidth }}>
         <Card.Header style={{ backgroundColor: '#99CCFF' }}>
-          <h5>Summaries for User {userId}</h5>
+          <h5>Summaries for User {userName}</h5>
         </Card.Header>
         <Card.Body style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
           {summaries.map((summary, index) => (

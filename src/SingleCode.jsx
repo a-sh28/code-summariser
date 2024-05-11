@@ -44,6 +44,7 @@ function SingleCode() {
       const data = await response.json();
       if (data.success) {
         setSummary(data.summary);
+        localStorage.setItem('summary1',data.summary);
         console.log("summary generated");
       }
     } catch (error) {
@@ -64,9 +65,17 @@ function SingleCode() {
       });
       const data = await response.json();
       if (data.success) {
-        window.alert("Feedback submitted successfully")
+        window.alert("Feedback submitted successfully!")
         console.log("Feedback submitted");
-        window.location.href = "/userdashboard"
+        if(window.confirm("Do you want to translate the code?")){
+          localStorage.setItem('summary',localStorage.getItem('summary1'));
+          window.alert("Navigate to transalator page and choose the lamguage!")
+        }
+        else
+        {
+          window.location.href ='/userdashboard'
+        }
+        
       }
     } catch (error) {
       console.log(error);

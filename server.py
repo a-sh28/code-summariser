@@ -6,7 +6,9 @@ import random
 import string
 from flask_mail import Mail, Message
 import pprint
-#import google.generativeai as palm
+import google.generativeai as palm
+import io
+
 
 app = Flask(__name__)
 CORS(app, methods=["GET", "POST"])
@@ -380,6 +382,31 @@ def generatesummary():
             return jsonify({"error":"summary not generated"}),500
     except Exception as e:
         return jsonify({"error":"try again later"}), 500
+@app.route('/api/inputcode',methods=['POST'])
+def fileinput():
+    try:
+        print("insode inputcode")
+        file = request.files['file']
+        input_code = file.read().decode('utf-8')
+        print("file content is:",input_code)
+        palm.configure(api_key='AIzaSyBos77hbBdG8OfZ5jMp51SzcZz4LsikS3A')
+        models = [m for m in palm.list_models() if 'generateText' in m.supported_generation_methods]
+        model = models[0].name
+        prompt = '''Summarise the following code. It must be natural, useful and consistent. 
+        The summary's should be in bullet points and its length must be proportional to the input code length. 
+        It must only exaplain the logic of the code, not the program syntax and semantics. The input code is: {}'''.format(input_code)
+        completion = palm.generate_text(
+        model=model,
+        prompt=prompt,
+        temperature=0.99)
+        summary = completion.result
+        print(summary)
+        if summary:
+            return jsonify({"success":"summary generated","summary":summary}),200
+        else:
+            return jsonify({"error":"summary not generated"}),500
+    except Exception as e:
+        return jsonify({"error":e}), 500
 
 @app.route('/api/userData', methods=['GET'])
 def get_user_data():
@@ -428,6 +455,10 @@ def get_summaries():
     cursor = conn.cursor()
 
     # Execute a SELECT query to retrieve summaries for the specified user ID
+    query = "select user_username from user_data where user_id = %s"
+    cursor.execute(query,(user_id,))
+    username= cursor.fetchone()
+    print("username:",username)
     query = f'SELECT * FROM code_summary WHERE user_id = {user_id}';
     cursor.execute(query)
     summaries = cursor.fetchall()
@@ -435,7 +466,7 @@ def get_summaries():
     conn.close()
 
     # Convert the results to a list of dictionaries for JSON serialization
-    summaries_data = [{'code_id':row[0], 'summary': row[1], 'naturalness': row[3], 'usefulness': row[4], 'consistency': row[5], 'feedback': row[6]} for row in summaries]
+    summaries_data = [{'username':username, 'code_id':row[0], 'summary': row[1], 'naturalness': row[3], 'usefulness': row[4], 'consistency': row[5], 'feedback': row[6]} for row in summaries]
     
     return jsonify(summaries_data)
 

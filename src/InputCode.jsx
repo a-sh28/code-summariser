@@ -46,13 +46,14 @@ function InputCode() {
     formData.append('file', file);
 
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/generatesummary', {
+      const response = await fetch('http://127.0.0.1:5000/api/inputcode', {
         method: 'POST',
         body: formData,
       });
       const data = await response.json();
       if (data.success) {
         setSummary(data.summary);
+        localStorage.setItem('summary',data.summary);
         console.log("Summary generated");
       }
     } catch (error) {
@@ -67,19 +68,24 @@ function InputCode() {
       setError('Please upload a file before submitting feedback.');
       return;
     }
-
+    const userid=localStorage.getItem('userid')
     try {
       const response = await fetch('http://127.0.0.1:5000/api/submitfeedback', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ summary, verbalFeedback, consistency, naturalness, usefulness })
+        body: JSON.stringify({ userid,summary, verbalFeedback, consistency, naturalness, usefulness })
       });
       const data = await response.json();
       if (data.success) {
         window.alert("Feedback submitted successfully")
         console.log("Feedback submitted");
+        if(window.confirm("Do you want to translate the code?"))
+          {
+            window.alert("Go to the translator and choose your language!");
+            window.location.href = "/userdashboard";
+          }
         window.location.href = "/userdashboard";
       }
     } catch (error) {

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap';
 
 function Translator() {
-  const [originalText, setOriginalText] = useState('');
+  
+  const [originalText, setOriginalText] = useState(localStorage.getItem('summary'));
   const [translatedText, setTranslatedText] = useState('');
   const [targetLanguage, setTargetLanguage] = useState('');
   const [languageOptions, setLanguageOptions] = useState([
@@ -22,6 +23,10 @@ function Translator() {
     }
     try {
       const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(originalText)}&langpair=en|${targetLanguage}`);
+      if(response.ok)
+        {
+          localStorage.setItem('summary', " ");
+        }
       if (!response.ok) {
         throw new Error('Translation request failed');
       }

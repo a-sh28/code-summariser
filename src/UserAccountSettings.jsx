@@ -18,7 +18,7 @@ function UserAccountSettings() {
     try {
       setUserId(localStorage.getItem('userid'));
       console.log(userId);
-      const response = await fetch(`http://localhost:5000/api/userData?search=${userId}`);
+      const response = await fetch(`http://127.0.0.1:5000/api/userData?search=${userId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch usernames');
       }
@@ -47,7 +47,7 @@ function UserAccountSettings() {
   const handleSubmitNewPassword = async (e) => {
 
     try {
-       const response = await fetch(`http://localhost:5000/api/updateUserPassword`, {
+       const response = await fetch(`http://127.0.0.1:5000/api/updateUserPassword`, {
          method: 'POST',
          headers: {
            'Content-Type': 'application/json'
@@ -57,7 +57,10 @@ function UserAccountSettings() {
            userPassword: newPassword
          })
        });
-
+      if(response.ok)
+        {
+          window.alert("Password successfully changed!")
+        }
        if (!response.ok) {
          throw new Error('Failed to update password');
         }

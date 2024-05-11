@@ -5,6 +5,7 @@ import './styling/AdminDashboard.css';
 import AddAdmin from './AddAdmin';
 import ViewUserStats from './ViewUserStats';
 import AccountSettings from './AccountSettings';
+import { Button } from 'react-bootstrap';
 
 function AdminDashboard() {
 
@@ -31,6 +32,7 @@ function AdminDashboard() {
   }
 
   const handleLogOut = () => {
+    window.alert("Do you want to sign out?")
     window.location.href = '/signin';
   }
 
@@ -74,7 +76,7 @@ function AdminDashboard() {
       <div className="container2">
         <div className="sub-container2 heading">
           <div><h4>Code Summarizer and Evaluation Tool</h4></div>
-          <div onClick={handleLogOut}>Logout</div></div>
+          <Button onClick={handleLogOut}>Logout</Button></div>
         <div className="sub-container2 renderarea">  {activeComponent === 'addAdmin' && <AddAdmin />}
                                                      {activeComponent === 'viewUserStats' && <ViewUserStats/>}
                                                      {activeComponent === 'accountSettings' && <AccountSettings/>}

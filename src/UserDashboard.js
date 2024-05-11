@@ -6,8 +6,7 @@ import Translator from './Translator';
 import SingleCode from './SingleCode';
 import UserAccountSettings from './UserAccountSettings';
 import ViewSummaries from './ViewSummaries';
-import { WindowSharp } from '@mui/icons-material';
-
+import { Button } from 'react-bootstrap';
 
 function UserDashboard() {
   const [activeComponent, setActiveComponent] = useState('singleCode');
@@ -58,6 +57,7 @@ function UserDashboard() {
   }
 
   const handleLogOut = () => {
+    window.alert("Do you want to logout?");
     window.location.href = '/signin';
   }
 
@@ -104,7 +104,7 @@ function UserDashboard() {
       <div className="container2">
         <div className="sub-container2 heading">
           <h4>Code Summarizer and Evaluation Tool</h4>
-          <div onClick={handleLogOut}>Logout</div>
+          <Button onClick={handleLogOut}>Logout</Button>
         </div>
         <div className="sub-container2 renderarea">
           {activeComponent === 'translator' && <Translator />}
