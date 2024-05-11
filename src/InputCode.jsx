@@ -13,9 +13,6 @@ function InputCode() {
   const [usefulness, setUsefulness] = useState(null);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const redirectToTranslator = () => {
-    navigate('/translator');  // Navigate to Translator route
-  };
   const handleConsistencyChange = (e) => {
     setConsistency(parseInt(e.target.value));
   };
@@ -106,11 +103,10 @@ function InputCode() {
                     <input type="file" onChange={handleFileChange} className="form-control my-2" />
                     <button onClick={generatesummary} style={{ backgroundColor: "#0066CC", borderColor: "#00000" }} className="btn btn-primary mb-2">Generate Summary</button>
                     {error && <div style={{ color: 'red' }}>{error}</div>}
-                    <Button onClick={redirectToTranslator} style={{ backgroundColor: "#0066CC", borderColor: "#00000" }} className="btn btn-primary mb-2">Go to Translator</Button>
                     <textarea className="form-control my-2" placeholder="Summary generated" value={summary} style={{ width: '500px', height: '150px' }} readOnly></textarea>
                   </Col>
                   <Col>
-                    <Card className="shadow" style={{ width: '310px', height: '360px' }}>
+                    <Card className="shadow" style={{ width: '310px', height: '380px' }}>
                       <Card.Header style={{ backgroundColor: '#99CCFF' }}>
                         <h5>Feedback</h5>
                       </Card.Header>
