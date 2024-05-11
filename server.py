@@ -1,15 +1,15 @@
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
 import mysql.connector
 import random
 import string
 from flask_mail import Mail, Message
 import pprint
-import google.generativeai as palm
+#import google.generativeai as palm
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, methods=["GET", "POST"])
 
 MYSQL_USER = 'root'
 MYSQL_PASSWORD = 'root'
@@ -295,6 +295,21 @@ def get_admin_data():
 
     return jsonify(data)
 
+app.route('/api/updateAdminPassword', methods=['POST'])
+def post_update_password():
+    # Extract adminId and newPassword from the request body
+    admin_id = request.json.get('adminId')
+    new_password = request.json.get('newPassword')
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    query = f'UPDATE admin_data SET admin_password = "{new_password}" WHERE admin_id = {admin_id}';
+    cursor.execute(query)
+    conn.commit()
+    conn.close()
+    # Send a response back
+    return jsonify({'message': 'Password updated successfully'})
+
 @app.route("/api/savepassword",methods=['POST'])
 def savepassword():
     try:
@@ -312,6 +327,7 @@ def savepassword():
         return jsonify ({"success":"Password updated"}),200
     except Exception as e:
         return jsonify({"error": str(e)}), 500    
+    
 @app.route('/api/submitfeedback', methods=['POST'])
 def submit_feedback():
     try:
@@ -339,6 +355,7 @@ def submit_feedback():
         return jsonify({"success":"Feedback submitted successfully"}),200
     except Exception as e:
         return jsonify({"error":str(e)}),500
+    
 @app.route('/api/generatesummary',methods=['POST'])
 def generatesummary():
     try:
@@ -363,6 +380,64 @@ def generatesummary():
             return jsonify({"error":"summary not generated"}),500
     except Exception as e:
         return jsonify({"error":"try again later"}), 500
+
+@app.route('/api/userData', methods=['GET'])
+def get_user_data():
+    search_term = request.args.get('search')
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    query = f'SELECT * FROM user_data where user_id = {search_term}'
+    print(query)
+    cursor.execute(query)
+    rows = cursor.fetchall()
+    row = rows[0]
+    data = { "user_username" : row[4],
+             "user_password" : row[5]}
+    return jsonify(data)
+
+# @app.route('/api/updateUserPassword', methods=['OPTIONS'])
+# def handle_options():
+#     # Add CORS headers to the response
+#     response = jsonify({"message": "Preflight request received"})
+#     response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+#     response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+#     response.headers.add('Access-Control-Allow-Methods', 'POST')
+#     return response
+
+@app.route('/api/updateUserPassword', methods=['POST'])
+def post_update_password_user():
+    # Extract userId and newPassword from the request body
+    user_id = request.json.get('userId')
+    new_password = request.json.get('userPassword')
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    query = f'UPDATE user_data SET user_password = "{new_password}" WHERE user_id = {user_id}';
+    print(query)
+    cursor.execute(query)
+    conn.commit()
+    conn.close()
+    # Send a response back
+    return jsonify({'message': 'Password updated successfully'}),200
+
+@app.route('/api/summaries', methods=['GET'])
+def get_summaries():
+    user_id = request.args.get('userId')
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # Execute a SELECT query to retrieve summaries for the specified user ID
+    query = f'SELECT * FROM code_summary WHERE user_id = {user_id}';
+    cursor.execute(query)
+    summaries = cursor.fetchall()
+
+    conn.close()
+
+    # Convert the results to a list of dictionaries for JSON serialization
+    summaries_data = [{'code_id':row[0], 'summary': row[1], 'naturalness': row[3], 'usefulness': row[4], 'consistency': row[5], 'feedback': row[6]} for row in summaries]
+    
+    return jsonify(summaries_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
