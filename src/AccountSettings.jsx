@@ -14,7 +14,7 @@ function AccountSettings() {
 
   const fetchAdminData = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/adminData?search=${adminId}`);
+      const response = await fetch(`http://127.0.0.1:5000/api/adminData?search=${adminId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch usernames');
       }
@@ -43,7 +43,7 @@ function AccountSettings() {
   const handleSubmitNewPassword = async (e) => {
 
     try {
-       const response = await fetch(`http://localhost:5000/api/updateAdminPassword`, {
+       const response = await fetch(`http://127.0.0.1:5000/api/updateAdminPassword`, {
          method: 'POST',
          headers: {
            'Content-Type': 'application/json'

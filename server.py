@@ -305,12 +305,12 @@ def post_update_password():
 
     conn = get_db_connection()
     cursor = conn.cursor()
-    query = f'UPDATE admin_data SET admin_password = "{new_password}" WHERE admin_id = {admin_id}';
+    query = f'UPDATE admin_data SET admin_password = "{new_password}" WHERE admin_id = {admin_id}'
     cursor.execute(query)
     conn.commit()
     conn.close()
     # Send a response back
-    return jsonify({'message': 'Password updated successfully'})
+    return jsonify({'message': 'Password updated successfully'}),200
 
 @app.route("/api/savepassword",methods=['POST'])
 def savepassword():
@@ -422,14 +422,14 @@ def get_user_data():
              "user_password" : row[5]}
     return jsonify(data)
 
-# @app.route('/api/updateUserPassword', methods=['OPTIONS'])
-# def handle_options():
-#     # Add CORS headers to the response
-#     response = jsonify({"message": "Preflight request received"})
-#     response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
-#     response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-#     response.headers.add('Access-Control-Allow-Methods', 'POST')
-#     return response
+@app.route('/api/updateAdminPassword', methods=['OPTIONS'])
+def handle_options():
+    # Add CORS headers to the response
+    response = jsonify({"message": "Preflight request received"})
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    response.headers.add('Access-Control-Allow-Methods', 'POST')
+    return response
 
 @app.route('/api/updateUserPassword', methods=['POST'])
 def post_update_password_user():

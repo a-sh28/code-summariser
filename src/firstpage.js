@@ -23,11 +23,7 @@ function FirstPage() {
             Code Summariser and Evaluator
           </Typography>
         </Box>
-        <Box className="title-box">
-          <Typography variant="h5" component="h1" color="black" fontWeight="bold">
-            Get started to experience seamless summarisation and translation!
-          </Typography>
-        </Box>
+        
       </Box>
       <div className="page-background"></div> {/* Add the background */}
       <Container component="main" maxWidth="xs" className='page'>
