@@ -10,6 +10,17 @@
 5. Rashmi Vagha - [﻿rvagha@umass.edu](mailto:rvagha@umass.edu)  - **Spire ID:** 33617396
 ---
 
+## Video:
+
+To view our demo video, please visit url: https://drive.google.com/file/d/1RGKxd95VcAF5jfAb_ZcPxeV2TU8HgqMk/view?usp=sharing
+
+---
+
+## Introduction to CSET:
+With the help of a strong underlying model and an advanced user interface (UI), the Code Summarization and Evaluation Tool (CSET) project aims to transform code understanding and evaluation. Our application aims to provide preliminary features expected of a code summarization tool, combined with new improvements to improve the system's usefulness and user experience. We intend to provide a function that allows code summaries to be translated into other languages, as we would like to allow our users to view summaries in a language of their choice. Furthermore, recognizing the diverse needs of developers across different fields, our project aims to identify the usability of the tool for users from varying domains. When registering, users are asked to select their expertise like business intelligence, machine learning, or full stack development etc. This data could then be used by the admin to understand the effectiveness of the code summarization tool in helping users belonging to various domains and provide future directions of research and implementation. 
+
+---
+
 ## Running our Code:
 To run our code, please perform the following steps:
 
@@ -30,6 +41,9 @@ To run our code, please perform the following steps:
 Our application is now deployed successfully and will be able at: [﻿http://localhost:3000 ](http://localhost:3000/) 
 
 Remember to Sign Up before you start summarizing!
+To login as the default admin, your credentials would be:   
+    **Username** - Admin  
+    **Password** - Admin  
 
 ---
 
@@ -66,9 +80,10 @@ Remember to Sign Up before you start summarizing!
 
 **Authentication:**
 
-- SignIn -
-- SignUp - 
-- 
+- SignIn - A user can sign in with their credentials. If password is forgotten, the users enter the email address with which they registered, and receive a verification code at this email address. On receiving the verification code, the users input this in the forgotten password page, which on authenticating the user and the code allows the user to input a new password.
+- SignUp - A user can sign up by providing their First Name, Last Name, email address, their profession, a username, and a password. We ensure that both email address and username are unique. On a successful sign up, the user is redirected back to the sign in page to log in and use our application.
+  
+
 **Admin Dashboard:**
 
 - AccountSettings - The admin views their username and password. They can also change their password.
@@ -77,6 +92,7 @@ Remember to Sign Up before you start summarizing!
     - CategoryUsersEval : Admin can view the statistics of a particular category of users.
     - SingleUserEval : Admin can view the statistics of a single user.
     - AllUsersEval : Admin can view the statistics of all users averaged together.
+- Change to User Mode - The admin can also use the functionalities of the CSET tool (summarization and translation)
 
 
 **User Dashboard:**
@@ -98,7 +114,7 @@ Remember to Sign Up before you start summarizing!
 3. Equivalence Testing - **Blackbox Testing**
 
 
-**Add more details on completion of testing**
+Please refer to the testing document to view more details on testing!
 
 
 
