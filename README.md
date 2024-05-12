@@ -35,7 +35,7 @@ To run our code, please perform the following steps:
 1. To launch the back-end run:  (Running on Port 5000)
 `python server.py`  
 
-1. To create the SQL database and the tables within the database, launch an **SQL server** (For eg: MySQL WorkBench) and run our: 
+1. To create the SQL database and the tables within the database, launch an **SQL server** (For eg: MySQL WorkBench) and run our DB_SCRIPT.txt available in our main directory of this repository: 
 `DB_script.txt` 
 
 Our application is now deployed successfully and will be able at: [﻿http://localhost:3000 ](http://localhost:3000/) 
