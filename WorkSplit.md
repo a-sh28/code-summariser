@@ -52,18 +52,41 @@
 </p>
 
 <p>
-  <ol>
-    <li><strong>Developed User Dashboard:</strong>
-      <ul>
-        <li>Developed Code Input Page where users can paste text and receive summaries, and submit feedback on the same page.</li>
-        <li>Worked on the Code Input Page backend Flask API connecting the page to the backend file and database.</li>
-        <li>Developed Translator Page where users can obtain translations for generated summaries.</li>
-        <li>Worked on the Translator Page backend Flask API connecting this page to the backend file and database.</li>
-        <li>Implemented the Log Out option for the user Dashboard.</li>
-      </ul>
-    </li>
-  </ol>
+  <strong>Code Input Page:</strong>
+  <ul>
+    <li>Developed a user-friendly interface allowing users to paste text and receive summaries.</li>
+    <li>Implemented a feedback submission feature, enabling users to provide feedback directly on the same page.</li>
+  </ul>
 </p>
+
+<p>
+  <strong>Code Input Page Backend Flask API:</strong>
+  <ul>
+    <li>Worked on the backend Flask API for the Code Input Page, facilitating communication with the backend file and database.</li>
+  </ul>
+</p>
+
+<p>
+  <strong>Translator Page:</strong>
+  <ul>
+    <li>Created a Translator Page enabling users to access translations for generated summaries.</li>
+  </ul>
+</p>
+
+<p>
+  <strong>Translator Page Backend Flask API:</strong>
+  <ul>
+    <li>Developed the backend Flask API for the Translator Page, establishing connectivity with the backend file and database.</li>
+  </ul>
+</p>
+
+<p>
+  <strong>Log Out Option:</strong>
+  <ul>
+    <li>Implemented the Log Out feature within the user Dashboard, allowing users to securely sign out of their accounts.</li>
+  </ul>
+</p>
+
 
 <p>
   <ol>
