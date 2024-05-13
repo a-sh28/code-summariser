@@ -6,7 +6,7 @@
 | <p>Ashwini Ramesh Kumar</p><p>[﻿ashwinirames@umass.edu](mailto:ashwinirames@umass.edu) - 34025576</p> | <ul><li>Implemented frontend and backend for authentication module<ol><li>Signup page for system users with form validation using Google's Material UI</li><li>Signin page for system users and admins with validation using Google's Material UI.</li><li>Implemented Gmail SMTP Server for forgot password feature</li> </ol></li><br><li>Implemented backend for code summarisation module<ol><li>Used Palm API to set up Google's Bison model for summarising single code input feature</li><li>Extended the above for file input feature, by adding a file parsing logic to extract the code.</li></ol><br></li><li>Implemented unit testing for React components using Jest<ol><li>Ran npm tests on components to test the correct rendering of templates.</li><li>Tests to check the rendering of right values returned by the Flask APIs called from React using 'fetch'.</li></li>
 | <p>Dhamini Devaraj</p><p>[﻿ddevaraj@umass.edu](mailto:ddevaraj@umass.edu) - 34048503</p> |  
 | <p>Janani Pasham</p><p>[﻿jpasham@umass.edu](mailto:jpasham@umass.edu)  - 34023678</p> |  <ul><li>Translator Integration:
-<Tested various Language Model frameworks for translation tasks, including **MyMemory** and other alternatives like LibreTranslate.
+Tested various Language Model frameworks for translation tasks, including **MyMemory** and other alternatives like LibreTranslate.
 Finalized integration with **MyMemory** for seamless translation capabilities, ensuring accurate and efficient translation services for users.</li></ul>
 
 Developed User Dashboard:
