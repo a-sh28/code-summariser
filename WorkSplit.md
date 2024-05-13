@@ -99,6 +99,36 @@
 </p> |
 
 
-| <p>Rashmi Vagha</p><p>[﻿rvagha@umass.edu](mailto:rvagha@umass.edu) - 33617396</p> |  |
+| <p>Rashmi Vagha</p><p>[﻿rvagha@umass.edu](mailto:rvagha@umass.edu) - 33617396</p> |   <ol>
+    <li><strong> Database Setup: </strong>
+      <ul>
+        <li> Designed a relational database schema and implemeted it using MySQL </li>
+        <li> Wrote the database script file to ensure consistent setup for all team members </li>
+      </ul>
+    </li>
+  </ol>
+</p>
+
+<p>
+  <ol>
+    <li><strong> Add Admin Backend: </strong>
+      <ul>
+        <li> Implemeted a functionality to allow existing admin to add a new admin </li>
+      </ul>
+    </li>
+  </ol>
+</p>
+
+<p>
+  <ol>
+    <li><strong> Equivalence Testing: </strong> 
+      <ul>
+        <li> Performed equivalence testing on the entire system </li>
+        <li> Ensured that the flow and navigation of the system is user friendly and understandable </li>
+        <li> Performed tests to check whether the systems throws appropriate errors and displays correct error messages for an invalid input </li>
+      </ul>
+    </li>
+  </ol>
+</p> |
 
 
