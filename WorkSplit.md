@@ -38,7 +38,7 @@
       </ul>
     </li>
   </ol>
-</p>
+</p> |
 
 
 | <p>Rashmi Vagha</p><p>[﻿rvagha@umass.edu](mailto:rvagha@umass.edu) - 33617396</p> |  |
