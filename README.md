@@ -114,7 +114,8 @@ To login as the default admin, your credentials would be:
 3. Equivalence Testing - **Blackbox Testing**
 
 
-Please refer to the testing document to view more details on testing!
+Please refer to the testing document to view more details on testing! (Code_Summarizer_Testing.pdf)
+Worksplit can be found in the same repo as well (WorkSplit.md)
 
 
 
