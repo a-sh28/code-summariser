@@ -40,16 +40,6 @@
   </ol>
 </p>
 
-- Developed User Dashboard:
-  - Developed Code Input Page where users can paste text and receive summaries, and submit feedback on the same page.
-  - Worked on the backend Flask API connecting the page to the backend file and database.
-  - Developed Translator Page where users can obtain translations for generated summaries.
-  - Worked on the backend Flask API connecting this page to the backend file and database.
-  - Implemented the Log Out option for the user Dashboard.
-
-- Testing: 
-  I conducted Integration testing for the application using Postman to verify if different Flask APIs returned the expected JSON and status for the application.
-
 
 | <p>Rashmi Vagha</p><p>[﻿rvagha@umass.edu](mailto:rvagha@umass.edu) - 33617396</p> |  |
 
