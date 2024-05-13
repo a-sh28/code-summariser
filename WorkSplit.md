@@ -21,9 +21,9 @@
     <li><strong>Developed User Dashboard:</strong>
       <ul>
         <li>Developed Code Input Page where users can paste text and receive summaries, and submit feedback on the same page.</li>
-        <li>Worked on the backend Flask API connecting the page to the backend file and database.</li>
+        <li>Worked on the Code Input Page backend Flask API connecting the page to the backend file and database.</li>
         <li>Developed Translator Page where users can obtain translations for generated summaries.</li>
-        <li>Worked on the backend Flask API connecting this page to the backend file and database.</li>
+        <li>Worked on the Translator Page backend Flask API connecting this page to the backend file and database.</li>
         <li>Implemented the Log Out option for the user Dashboard.</li>
       </ul>
     </li>
